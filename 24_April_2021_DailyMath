@@ -1,0 +1,67 @@
+#problem: what is the smallest number with three representations as a sum 
+#of two distinct primes?
+
+
+#Python Solution
+
+
+#import some helpful tools
+from statistics import mode
+from collections import Counter
+
+#this function is a basic prime number check
+def prime_checker (x):
+  for i in range (2, int(x**0.5) + 1):
+    if x % i == 0:
+      return False
+  return True
+
+
+#this function returns a list of primes y elements in length
+def prime_generator (y):
+  primes = []
+  candidate = 1
+  counter = 0
+  while counter < y:
+    candidate += 1
+    if prime_checker (candidate):
+      primes.append(candidate)
+      counter += 1
+  return primes
+
+
+#this function checks for numbers that meet the condition:
+def addend_checker (primes):
+  candidates = []
+  #this works with integers 1 to 31 since our answer is known to be in that range
+  for x in range (1, 32):
+    for y in primes:
+      #the x/2 conditions stops it from counting the same pairing twice
+      if y <= (x/2):
+        z = (x - y)
+        if z in primes and z != y:
+          candidates.append(x)
+  return candidates
+
+#this calls the custom function with an argument that calls the prime generator
+candidates = addend_checker (prime_generator(10))
+
+#this applies the Counter module to our list of candidates
+candidates = Counter(candidates)
+
+#this list will be populated only with numbers that meet the condition of three
+#separate ways it can be represented as the sum of two primes
+threebies = []
+
+#this populates and sorts the threebies list
+for integer, count in candidates.items():
+  if count == 3:
+    threebies.append(integer)
+    threebies.sort()
+
+#lastly, this prints the lowest number that meets our condition!
+print("the answer is:  ", threebies[0])
+
+
+
+
