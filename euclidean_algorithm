@@ -1,0 +1,44 @@
+#euclidean algorithm in Python
+
+def euclidean_algorithm (a, b):
+  #these two lines ensure that the larger inputted number is assigned to a and the smaller to b
+  if b > a:
+    a, b = b, a
+  #using a while loop lets us make sure it continues all the way through
+  while a % b != 0:
+    r = a % b
+    #our previous b becomes a (moves over a column)
+    a = b
+    #our previous remainder becomes b (moves over a column)
+    b = r
+    #this will continue until a %% b is 0, at which point we're done!
+  return b
+  
+#call the function by putting in the two numbers for which you want to find the greatest common factor, separated by a comma
+euclidean_algorithm()
+
+
+#R version
+
+euclidean_algorithm <- function (a, b){
+  #we set a vector with the input numbers
+  gcf_of <- c(a, b)
+  #these two lines ensure that the larger inputted number is assigned to a and the smaller to b
+  a <- max(gcf_of)
+  b <- min(gcf_of)
+  #using a while loop lets us make sure it continues all the way through
+  while (a %% b != 0){
+    #the remainder is set to be what's left when a is divided by b
+    r <- (a %% b)
+    #our previous b becomes a (moves over a column)
+    a <- b
+    #our previous remainder becomes b (moves over a column)
+    b <- r
+    #this will continue until a %% b is 0, at which point we're done!
+
+  } 
+  return (b) 
+}
+
+#we call the function here by putting in the two numbers for which we want the gcf, separated by a comma
+euclidean_algorithm ()
