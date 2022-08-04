@@ -66,3 +66,7 @@ for (x in powerset(full_set)){
 
 #this prints our answer!
 print(counter)
+
+
+
+
