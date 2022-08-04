@@ -1,0 +1,68 @@
+#Problem: the number of subsets of {1, 2, 3, 4, 5} with an odd number of elements
+
+#Python solution
+
+#first, creating a list with these elements to work with
+full_set = [1, 2, 3, 4, 5]
+
+#next, creating a custom function to automatically generate all subsets
+def subset_factory (n):
+  #create an empty list of subsets to work with
+  subsets = [] 
+  #use a for loop along with our knowledge that the length of a power set is
+  #2 raised to the power of the number of elements
+  for x in range (2**len(n)):
+    #create an empty list placeholder to work with
+    subset = []
+    #nest a for loop to go through the length of the list passed to the 
+    #function as an argument
+    for y in range (len(n)):
+      if x & (1 << y) > 0:
+       subset.append(n[y])
+    subsets.append(subset)
+  return subsets
+
+#we call the function with the argument of the full set of numbers we're working with
+#and we name these results our power_set!
+power_set = (subset_factory(full_set))
+
+#now we create an empty list that we will populate with only subsets that have an 
+#odd number of elements
+odd_numbered_elements = []
+
+#we use this for loop to populate it using modular arithmetic
+for elements in power_set:
+  #if the length of each subset divided by 2 has a remainder, it gets added to the list
+  if len(elements) % 2 != 0:
+    odd_numbered_elements.append(elements)
+
+#our answer is the number of subsets on this list!
+print(len(odd_numbered_elements))
+
+
+
+#R solution
+
+#first, we create a vector with these elements to work with
+full_set <- c(1, 2, 3, 4, 5)
+
+#next, we create a function that will produce the power set -- that is, all of
+#the possible subsets, and call the function with our set of numbers
+powerset <- function(full_set){
+  sets <- lapply(1:(length(full_set)), function(i) combn(full_set, i, simplify = F))
+  unlist(sets, recursive = F)
+}
+
+#now we make a counter
+counter <- 0
+
+#lastly, we iterate through the subsets and adjust the counter for every subset
+#with an odd number of elements
+for (x in powerset(full_set)){
+  if (length (x) %% 2 != 0){
+    counter <- counter + 1
+  }
+}
+
+#this prints our answer!
+print(counter)
