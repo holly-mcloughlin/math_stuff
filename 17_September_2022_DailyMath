@@ -1,0 +1,17 @@
+#The September 17, 2022 problem from the Daily Epsilon of Math calendar is:
+#find the shortest side of the Pythagorean triangle with area 1224
+
+#Python solution:
+
+import math
+
+for x in range (1225):
+  for y in range (x):
+    if (x * y) == 2448:
+      if math.sqrt((x * x) + (y * y)).is_integer():
+        print(y)
+
+
+
+
+
